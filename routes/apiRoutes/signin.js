@@ -1,3 +1,6 @@
+const User = require('../../models/edward/user')
+
+
 module.exports = (app) => {
 
 
@@ -47,9 +50,48 @@ if (!firstName) {
                 }
 
                 email = email.toLowerCase();
+
+            User.find({
+                email: email
+
+
+
+            },
+        (err,previousUsers) => {
+if (err) {
+    res.end({
+        success:false,
+        message: 'server error'
+    });
+    
+} else if (previousUsers.length > 0) {
+    res.end({
+success: false,
+        message: 'Account Already Exists.'
+    });
+}
+
+const newUser = new User();
+newUser.email=email;
+newUser.firstName = firstName;
+newUser.lastName = lastName;
+newUser.location = location;
+newUser.password= newUser.generateHash(password);
+newUser.save((err, user)=> {
+    if (err) {
+        res.end({
+            success:false,
+            message: 'server error'
+        });
+        }
+            res.end({
+                success:true,
+                message: 'Success!'
             });
 
-        };
+            });
+
+        });
 
 
 
