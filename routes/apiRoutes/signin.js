@@ -12,9 +12,12 @@ const { body } = req;
 const {
     fistName,
     lastName,
-    email,
+  
     password,
     location
+} = body;
+let {
+    email
 } = body;
 
 if (!firstName) {
@@ -93,6 +96,26 @@ newUser.save((err, user)=> {
 
         });
 
+        
+app.post('api/account/signin',(req,res,next) => {
+
+const { body } = req;
+const {
+    fistName,
+    lastName,
+  
+    password,
+    location
+} = body;
+let {
+    email
+} = body;
+
+    });
+
+});
+
+};
 
 
 
