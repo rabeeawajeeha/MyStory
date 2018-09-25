@@ -159,6 +159,76 @@ userSession.save((err,doc)=>{
 
 });
 
+app.get('api/account/verify',(req,res,next) => {
+
+    const {query} = req;
+    const { token } = query;
+
+
+    UserSession.find({
+        _id: token,
+        isDeleted: false,
+    }, (err, sessions) => {
+if (err) {
+    return res.send({
+        succes: false,
+        message: 'Server Error'
+    });
+}
+if(sessions.length !=1) {
+    return res.send({
+        success: false,
+        message: 'Invalid'
+    });
+}else{
+    return res.send({
+        success: true,
+        message: 'Good'
+    });
+}
+
+    
+
+    })
+});
+
+
+app.get('api/account/logout', (req,res,next) =>{
+
+    const {query} = req;
+    const { token } = query;
+
+
+    UserSession.findOneAndUpdate({
+        _id: token,
+        isDeleted: false
+    }, {
+$set:{isDeleted:true}
+    } ,null, (err, sessions) => {
+if (err) {
+    return res.send({
+        succes: false,
+        message: 'Server Error'
+    });
+}
+if(sessions.length !=1) {
+    return res.send({
+        success: false,
+        message: 'Invalid'
+    });
+}else{
+    return res.send({
+        success: true,
+        message: 'Good'
+    });
+}
+
+    
+
+    })
+
+
+});
 };
 
 
