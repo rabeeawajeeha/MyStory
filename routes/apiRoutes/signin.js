@@ -1,5 +1,5 @@
-const User = require('../../models/edward/user')
-
+const User = require('../../models/edward/user');
+const UserSession = require('../../models/edward/userSession');
 
 module.exports = (app) => {
 
@@ -21,31 +21,31 @@ let {
 } = body;
 
 if (!firstName) {
-    res.end({
+   return  res.send({
         success: false,
         message: 'First Name cannot be left blank.'
     });
 }
     if (!lastName) {
-        res.end({
+        return res.send({
             success: false,
             message: 'Last Name cannot be left blank.'
         });
     }
         if (!email) {
-            res.end({
+           return res.send({
                 success: false,
                 message: ' Email cannot be left blank.'
             });
         }
             if (!password) {
-                res.end({
+               return  res.send({
                     success: false,
                     message: 'First Name cannot be left blank.'
                 });
             }
                 if (!location) {
-                    res.end({
+                   return res.send({
                         success: false,
                         message: 'location cannot be left blank.'
                     });
@@ -62,13 +62,13 @@ if (!firstName) {
             },
         (err,previousUsers) => {
 if (err) {
-    res.end({
+    return res.send({
         success:false,
         message: 'server error'
     });
     
 } else if (previousUsers.length > 0) {
-    res.end({
+    return res.send({
 success: false,
         message: 'Account Already Exists.'
     });
@@ -82,12 +82,12 @@ newUser.location = location;
 newUser.password= newUser.generateHash(password);
 newUser.save((err, user)=> {
     if (err) {
-        res.end({
+      return  res.send({
             success:false,
             message: 'server error'
         });
         }
-            res.end({
+         return res.send({
                 success:true,
                 message: 'Success!'
             });
@@ -111,6 +111,50 @@ let {
     email
 } = body;
 
+
+
+email = email.toLowerCase();
+
+User.find({
+    email: email
+}, (err, users) =>  {
+    if(err) {
+return res.send({
+    success: false,
+    message:'Error: Server Error'
+});
+    }
+});
+if(user.length !=1) {
+    return res.send({
+        success:false,
+        message:'Invalid'
+    });
+}
+
+const user = users[0];
+if(!user.validPassword(password)){
+    return res.send({
+        success:false,
+        message:' Password is invalid.'
+    });
+}
+
+const userSession = new UserSession();
+userSession.userId = user._id;
+userSession.save((err,doc)=>{
+    if(err){
+        return res.send({
+            success:false,
+            message:'server error'
+        });
+    }
+    return res.send({
+        success:true,
+        message: "Valid Sign in",
+        token:  doc._id
+    });
+});
     });
 
 });
