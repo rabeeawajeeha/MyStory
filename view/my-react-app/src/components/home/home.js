@@ -17,6 +17,11 @@ class Home extends Component {
             signInError:'',
             signInEmail: '',
             signInPassword:'',
+            signUpFirstName:'',
+            signUpLastName:'',
+            signUpEmail:'',
+            signUpPassword:'',
+            signUpLocation:'',
             
         };
     }
@@ -58,6 +63,11 @@ class Home extends Component {
             signInError,
             signInEmail,
             signInPassword,
+            signUpFirstName,
+            signUpLastName,
+            signUpEmail,
+            signUpPassword,
+            signUpLocation,
         } =this.state;
 
         if (isLoading){
@@ -68,22 +78,26 @@ class Home extends Component {
         
         <div>
           <div>
-      
+      {
+          (signInError) ? (
+              <p>{signInError}</p>
+          ) : (null)
+      }
 
 <p>Sign In </p>
-<input type="email" placeholder="Email" />
-<input type="password" placeholder="Password"/>
+<input type="email" placeholder="Email" value={signInEmail} />
+<input type="password" placeholder="Password" value={signInPassword}/>
 <button>Sign In</button>
 </div>
 <br />
 <br />
 <div>
       <p>Sign Up</p>
-    <input type="text" placeholder="First Name" />< br />
-    <input type="text" placeholder="Last Name" />< br />
-    <input type="text" placeholder="Location/City" />< br />
-      <input type="email" placeholder="Email" />< br />
-      <input type="password" placeholder="Password"/>< br />
+    <input type="text" placeholder="First Name" value={signUpFirstName} />< br />
+    <input type="text" placeholder="Last Name" value={signUpLastName}/>< br />
+    <input type="text" placeholder="Location/City" value={signUpLocation} />< br />
+      <input type="email" placeholder="Email" value={signUpEmail} />< br />
+      <input type="password" placeholder="Password" value={signUpPassword}/>< br />
       <button>Sign Up </button>
       </div>
             </div>
