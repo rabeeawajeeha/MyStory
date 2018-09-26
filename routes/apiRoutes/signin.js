@@ -203,7 +203,10 @@ app.get('api/account/logout', (req,res,next) =>{
         _id: token,
         isDeleted: false
     }, {
-$set:{isDeleted:true}
+$set:{
+    isDeleted:true
+
+}
     } ,null, (err, sessions) => {
 if (err) {
     return res.send({
