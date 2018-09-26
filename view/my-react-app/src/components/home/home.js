@@ -24,6 +24,14 @@ class Home extends Component {
             signUpLocation:'',
             
         };
+
+this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
+this.onTextboxChangeSignInPassword= this.onTextboxChangeSignInPassword.bind(this);
+this.onTextboxChangeSignUpEmail= this.onTextboxChangeSignUpEmail.bind(this);
+this.onTextboxChangeSignUpPassword= this.onTextboxChangeSignUpPassword.bind(this);
+this.onTextboxChangeSignUpFirstName= this.onTextboxChangeSignUpFirstName.bind(this);
+this.onTextboxChangeSignUpLastName= this.onTextboxChangeSignUpLastName.bind(this);
+this.onTextboxChangeSignUpLocationName= this.onTextboxChangeSignUpLocationName.bind(this);
     }
 
     componentDidMount(){
@@ -53,6 +61,55 @@ class Home extends Component {
             });
         }
     }
+
+
+    onTextboxChangeSignInEmail(event){
+        this.setState({
+            signInEmail:event.target.value,
+        });
+
+    }
+    onTextboxChangeSignInPassword(event){
+        this.setState({
+            signInPassword:event.target.value,
+        });
+
+    }
+    onTextboxChangeSignUpEmail(event){
+        this.setState({
+            signUpEmail:event.target.value,
+        });
+
+    }
+    onTextboxChangeSignUpPassword(event){
+        this.setState({
+            signUpPassword:event.target.value,
+        });
+
+    }
+    onTextboxChangeSignUpFirstName(event){
+        this.setState({
+            signUpFirstName:event.target.value,
+        });
+        
+
+    }
+    onTextboxChangeSignUpLastName(event){
+        this.setState({
+            signUpLastName:event.target.value,
+        });
+        
+
+    }
+    onTextboxChangeSignUpLocationName(event){
+        this.setState({
+            signUpLocation:event.target.value,
+        });
+        
+
+    }
+    
+
 
 
 
