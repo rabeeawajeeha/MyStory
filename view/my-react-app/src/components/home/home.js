@@ -14,7 +14,9 @@ class Home extends Component {
             isLoading: true,
             token: '',
             signUpError:'',
-            signInError:''
+            signInError:'',
+            signInEmail: '',
+            signInPassword:'',
             
         };
     }
@@ -53,6 +55,9 @@ class Home extends Component {
         const{
             isLoading,
             token,
+            signInError,
+            signInEmail,
+            signInPassword,
         } =this.state;
 
         if (isLoading){
