@@ -142,19 +142,19 @@ this.onTextboxChangeSignUpLocationName= this.onTextboxChangeSignUpLocationName.b
       }
 
 <p>Sign In </p>
-<input type="email" placeholder="Email" value={signInEmail} />
-<input type="password" placeholder="Password" value={signInPassword}/>
+<input type="email" placeholder="Email" value={signInEmail} onChange={this.onTextboxChangeSignInEmail}/>
+<input type="password" placeholder="Password" value={signInPassword} onChange={this.onTextboxChangeSignInPassword}/>
 <button>Sign In</button>
 </div>
 <br />
 <br />
 <div>
       <p>Sign Up</p>
-    <input type="text" placeholder="First Name" value={signUpFirstName} />< br />
-    <input type="text" placeholder="Last Name" value={signUpLastName}/>< br />
-    <input type="text" placeholder="Location/City" value={signUpLocation} />< br />
-      <input type="email" placeholder="Email" value={signUpEmail} />< br />
-      <input type="password" placeholder="Password" value={signUpPassword}/>< br />
+    <input type="text" placeholder="First Name" value={signUpFirstName} onChange={this.onTextboxChangeSignUpFirstName}/>< br />
+    <input type="text" placeholder="Last Name" value={signUpLastName} onChange={this.onTextboxChangeSignUpLastName}/>< br />
+    <input type="text" placeholder="Location/City" value={signUpLocation} onChange={this.onTextboxChangeSignUpLocationName}/>< br />
+      <input type="email" placeholder="Email" value={signUpEmail} onChange={this.onTextboxChangeSignUpEmail}/>< br />
+      <input type="password" placeholder="Password" value={signUpPassword} onChange={this.onTextboxChangeSignUpPassword}/>< br />
       <button>Sign Up </button>
       </div>
             </div>
