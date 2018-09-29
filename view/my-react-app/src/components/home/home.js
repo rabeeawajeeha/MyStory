@@ -4,7 +4,7 @@ import 'whatwg-fetch';
 import {
     getFromStorage,
     setInStorage,
-} from "../../../app.js/utils/storage";
+} from "../../utils/storage";
 
 class Home extends Component {
     constructor(props) {
@@ -38,10 +38,11 @@ this.logout= this.logout.bind(this);
     }
 
     componentDidMount(){
-        const obj = getFromStorage('my-react-app');
-        const {token}= obj;
+        const obj = getFromStorage('./my-react-app');
+        
         if(obj && obj.token) {
 
+            const {token}= obj;
             fetch('/api/account/verify?token=' + token)
             .then(res => res.json())
             .then(json => {
@@ -80,7 +81,7 @@ this.setState({
     isLoading:true,
 });
 
-fetch('/account/signup', {
+fetch('/api/account/signup', {
     method: 'POST',
     headers:{
 'Content-Type': 'application/json'
@@ -189,7 +190,7 @@ const obj = getFromStorage('my-react-app');
             });
         }
     }
-}
+
 
 
 
@@ -264,7 +265,7 @@ const obj = getFromStorage('my-react-app');
     if (!token) {
         return (
         
-        
+        <div>
           <div>
       {
           (signInError) ? (
@@ -280,7 +281,7 @@ const obj = getFromStorage('my-react-app');
 <br />
 <br />
 <div>
-<div>
+
       {
           (signUpError) ? (
               <p>{signUpError}</p>
@@ -305,3 +306,5 @@ const obj = getFromStorage('my-react-app');
     );
     }
 }
+
+export default Home;

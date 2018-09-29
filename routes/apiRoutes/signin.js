@@ -6,7 +6,7 @@ module.exports = (app) => {
 
 
 
-app.post('api/account/signup',(req,res,next) => {
+app.post('/api/account/signup',(req,res,next) => {
 
 const { body } = req;
 const {
@@ -97,7 +97,7 @@ newUser.save((err, user)=> {
         });
 
         
-app.post('api/account/signin',(req,res,next) => {
+app.post('/api/account/signin',(req,res,next) => {
 
 const { body } = req;
 const {
@@ -159,7 +159,7 @@ userSession.save((err,doc)=>{
 
 });
 
-app.get('api/account/verify',(req,res,next) => {
+app.get('/api/account/verify',(req,res,next) => {
 
     const {query} = req;
     const { token } = query;
@@ -189,11 +189,11 @@ if(sessions.length !=1) {
 
     
 
-    })
+    });
 });
 
 
-app.get('api/account/logout', (req,res,next) =>{
+app.get('/api/account/logout', (req,res,next) =>{
 
     const {query} = req;
     const { token } = query;
