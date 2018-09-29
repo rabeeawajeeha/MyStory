@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import 'whatwg-fetch';
+import Popup from "reactjs-popup";
+import "../home/home.css";
 
 import {
     getFromStorage,
@@ -38,7 +40,7 @@ this.logout= this.logout.bind(this);
     }
 
     componentDidMount(){
-        const obj = getFromStorage('./my-react-app');
+        const obj = getFromStorage('my-react-app');
         
         if(obj && obj.token) {
 
@@ -265,7 +267,12 @@ const obj = getFromStorage('my-react-app');
     if (!token) {
         return (
         
-        <div>
+        <div className ="popup">
+        <Popup
+        trigger ={<button className="expand"> Login/Register</button>}
+        
+        closeOnDocumentClick
+        >
           <div>
       {
           (signInError) ? (
@@ -295,6 +302,7 @@ const obj = getFromStorage('my-react-app');
       <input type="password" placeholder="Password" value={signUpPassword} onChange={this.onTextboxChangeSignUpPassword}/>< br />
       <button onClick={this.onSignUp}>Sign Up </button>
       </div>
+      </Popup>
             </div>
             );
     }
