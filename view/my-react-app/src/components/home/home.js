@@ -34,11 +34,13 @@ this.onTextboxChangeSignUpLastName= this.onTextboxChangeSignUpLastName.bind(this
 this.onTextboxChangeSignUpLocationName= this.onTextboxChangeSignUpLocationName.bind(this);
 this.onSignIn= this.onSignIn.bind(this);
 this.onSignUp= this.onSignUp.bind(this);
+this.logout= this.logout.bind(this);
     }
 
     componentDidMount(){
-        const token = getFromStorage('my-react-app');
-        if(token) {
+        const obj = getFromStorage('my-react-app');
+        const {token}= obj;
+        if(obj && obj.token) {
 
             fetch('/api/account/verify?token=' + token)
             .then(res => res.json())
@@ -113,9 +115,83 @@ if (json.success) {
 }
 
 onSignIn(){
-
+    const {
+        signInEmail,
+        
+        signInPassword,
+    
+    } = this.state;
+    
+    this.setState({
+        isLoading:true,
+    });
+    
+    fetch('/account/signin', {
+        method: 'POST',
+        headers:{
+    'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        email:signInEmail,
+        password:signInPassword,
+       
+        }),
+    }).then(res=> res.json())
+    .then(json => {
+    if (json.success) {
+        setInStorage('my-react-app', {token:json.token});
+            this.setState({
+                signInError:json.message,
+                isLoading:false,
+                signInEmail:'',
+                signInPassword:'',
+               token: json.token,
+            });
+        }else{
+            this.setState({
+                signInError: json.message,
+                isLoading:false,
+            });
+        }
+    });
 
 }
+
+logout() {
+this.setState({
+    isLoading:true,
+    
+});
+const obj = getFromStorage('my-react-app');
+        const {token}= obj;
+        if(obj && obj.token) {
+
+            fetch('/api/account/logout?token=' + token)
+            .then(res => res.json())
+            .then(json => {
+                if(json.success) {
+                    this.setState({
+                        token:'',
+                        isLoading:false
+                    });
+
+                }else {
+                    this.setState({
+                        isLoading:false,
+                    });
+                }
+            });
+        
+        
+        }else{
+            this.setState({
+                isLoading: false,
+            });
+        }
+    }
+}
+
+
 
     onTextboxChangeSignInEmail(event){
         this.setState({
@@ -224,6 +300,7 @@ onSignIn(){
     return(
         <div>
 <p> Account </p>
+<button onClick={this.logout}>Logout</button>
         </div>
     );
     }
