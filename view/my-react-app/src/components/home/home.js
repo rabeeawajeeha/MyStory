@@ -80,6 +80,9 @@ this.setState({
 
 fetch('/account/signup', {
     method: 'POST',
+    headers:{
+'Content-Type': 'application/json'
+    },
     body: JSON.stringify({
     firstName: signUpFirstName,
     lastName: signUpLastName,
@@ -95,6 +98,9 @@ if (json.success) {
             isLoading:false,
             signUpEmail:'',
             signUpPassword:'',
+            signUpFirstName:'',
+            signUpLocation:'',
+            signUpLastName:'',
         });
     }else{
         this.setState({
