@@ -32,6 +32,8 @@ this.onTextboxChangeSignUpPassword= this.onTextboxChangeSignUpPassword.bind(this
 this.onTextboxChangeSignUpFirstName= this.onTextboxChangeSignUpFirstName.bind(this);
 this.onTextboxChangeSignUpLastName= this.onTextboxChangeSignUpLastName.bind(this);
 this.onTextboxChangeSignUpLocationName= this.onTextboxChangeSignUpLocationName.bind(this);
+this.onSignIn= this.onSignIn.bind(this);
+this.onSignUp= this.onSignUp.bind(this);
     }
 
     componentDidMount(){
@@ -62,6 +64,52 @@ this.onTextboxChangeSignUpLocationName= this.onTextboxChangeSignUpLocationName.b
         }
     }
 
+onSignUp(){
+const {
+    signUpFirstName,
+    signUpLastName,
+    signUpEmail,
+    signUpLocation,
+    signUpPassword,
+
+} = this.state;
+
+this.setState({
+    isLoading:true,
+});
+
+fetch('/account/signup', {
+    method: 'POST',
+    body: JSON.stringify({
+    firstName: signUpFirstName,
+    lastName: signUpLastName,
+    email:signUpEmail,
+    password:signUpPassword,
+    location:signUpLocation,
+    }),
+}).then(res=> res.json())
+.then(json => {
+if (json.success) {
+        this.setState({
+            signUpError:json.message,
+            isLoading:false,
+            signUpEmail:'',
+            signUpPassword:'',
+        });
+    }else{
+        this.setState({
+            signUpError: json.message,
+            isLoading:false,
+        });
+    }
+});
+
+}
+
+onSignIn(){
+
+
+}
 
     onTextboxChangeSignInEmail(event){
         this.setState({
@@ -125,6 +173,7 @@ this.onTextboxChangeSignUpLocationName= this.onTextboxChangeSignUpLocationName.b
             signUpEmail,
             signUpPassword,
             signUpLocation,
+            signUpError,
         } =this.state;
 
         if (isLoading){
@@ -133,7 +182,7 @@ this.onTextboxChangeSignUpLocationName= this.onTextboxChangeSignUpLocationName.b
     if (!token) {
         return (
         
-        <div>
+        
           <div>
       {
           (signInError) ? (
@@ -144,18 +193,24 @@ this.onTextboxChangeSignUpLocationName= this.onTextboxChangeSignUpLocationName.b
 <p>Sign In </p>
 <input type="email" placeholder="Email" value={signInEmail} onChange={this.onTextboxChangeSignInEmail}/>
 <input type="password" placeholder="Password" value={signInPassword} onChange={this.onTextboxChangeSignInPassword}/>
-<button>Sign In</button>
+<button onClick={this.onSignIn}>Sign In</button>
 </div>
 <br />
 <br />
 <div>
+<div>
+      {
+          (signUpError) ? (
+              <p>{signUpError}</p>
+          ) : (null)
+      }
       <p>Sign Up</p>
     <input type="text" placeholder="First Name" value={signUpFirstName} onChange={this.onTextboxChangeSignUpFirstName}/>< br />
     <input type="text" placeholder="Last Name" value={signUpLastName} onChange={this.onTextboxChangeSignUpLastName}/>< br />
     <input type="text" placeholder="Location/City" value={signUpLocation} onChange={this.onTextboxChangeSignUpLocationName}/>< br />
       <input type="email" placeholder="Email" value={signUpEmail} onChange={this.onTextboxChangeSignUpEmail}/>< br />
       <input type="password" placeholder="Password" value={signUpPassword} onChange={this.onTextboxChangeSignUpPassword}/>< br />
-      <button>Sign Up </button>
+      <button onClick={this.onSignUp}>Sign Up </button>
       </div>
             </div>
             );
